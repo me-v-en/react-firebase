@@ -1,40 +1,36 @@
-import { db } from './firebase-config'
-import { collection, getDocs } from 'firebase/firestore'
-import React from 'react'
+import { db } from "./firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 
-class Players extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      players: []
-    }
-  }
+function Players(props) {
+  const [players, setPlayers] = useState([]);
 
-  async componentDidMount () {
-    console.log('componentDidMount')
-    const res = await getDocs(collection(db, 'players'))
-    this.res = res
-    this.setState({ players: [0, 1, 2, 3] })
-  }
 
-  render () {
-    return (
-      <>
-      <p>{this.state.players}</p>
-      <ul>
-        {this.state.players.map(player => this.renderPlayer(player))}
-      </ul>
-      </>
-    )
-  }
+// Component did mount
+  useEffect(() => {
+    fetchData();
+  });
 
-  renderPlayer (player) {
-    return <Player value={player} key={player}></Player>
-  }
+  const fetchData = async () => {
+    console.log("componentDidMount");
+    const res = await getDocs(collection(db, "players"));
+    setPlayers( [0, 1, 2, 3] );
+  };
+  const renderPlayer = (player) => {
+    return <Player value={player} key={player}></Player>;
+  };
+
+  return (
+    <>
+      <p>{players}</p>
+      <ul>{players.map((player) => renderPlayer(player))}</ul>
+    </>
+  );
 }
 
-function Player (props) {
-  return (<li>{props.value}</li>)
+function Player(props) {
+  const { value } = props;
+  return <li>{value}</li>;
 }
 
-export default Players
+export default Players;
