@@ -2,7 +2,11 @@ import './App.css';
 
 import React, {useState, useEffect} from 'react';
 import {db} from './firebase-config';
-import {collection, getDocs, addDoc} from 'firebase/firestore';
+import {collection,
+  getDocs,
+  doc,
+  addDoc,
+  deleteDoc} from 'firebase/firestore';
 
 import Players from './Players';
 import AddPlayerForm from './AddPlayerForm';
@@ -27,14 +31,22 @@ function App() {
 
   const onAddPlayer=async (player)=>{
     const createdPlayerRef = await addDoc(playersCollectionRef, player);
-
+    fetchData();
     console.log('createdPlayerRef', createdPlayerRef);
+  };
+
+  const onDeletePlayer=async (playerId)=>{
+    const playerDoc = await doc(db, 'players', playerId);
+    await deleteDoc(playerDoc);
+    fetchData();
   };
 
   return (
     <div className="App">
-      <Players players={players}></Players>
-      <AddPlayerForm onAddPlayer={onAddPlayer}></AddPlayerForm>
+      <Players players={players}
+        onDeletePlayer={(id)=>onDeletePlayer(id)}
+      />
+      <AddPlayerForm onAddPlayer={onAddPlayer}/>
     </div>
   );
 }

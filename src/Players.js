@@ -3,9 +3,15 @@
 import React from 'react';
 
 function Players(props) {
-  const {players} = props;
+  const {players, onDeletePlayer} = props;
+
+
   const renderPlayer = (player) => {
-    return <Player player={player} key={player}></Player>;
+    return (
+      <Player player={player}
+        onDeletePlayer={(id)=>onDeletePlayer(id)}
+        key={player.id}></Player>
+    );
   };
 
   return (
@@ -16,9 +22,15 @@ function Players(props) {
 }
 
 function Player(props) {
-  const {firstname, lastname} = props.player;
+  const {firstname, lastname, id} = props.player;
+  const {onDeletePlayer}= props;
 
-  return <li>{`${firstname} ${lastname}`}</li>;
+  return (
+    <>
+      <li>{`${firstname} ${lastname}`}</li>
+      <button type="button" onClick={()=>onDeletePlayer(id)}>Supprimer</button>
+    </>
+  );
 }
 
 export default Players;
