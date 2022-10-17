@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import React from 'react';
+import './Players.scss';
 
 function Players(props) {
   const {players, onDeletePlayer} = props;
@@ -16,19 +17,29 @@ function Players(props) {
 
   return (
     <>
-      <ul>{players.map((player) => renderPlayer(player))}</ul>
+      <ul className='playersList'>
+        {players.map((player) => renderPlayer(player))}
+      </ul>
     </>
   );
 }
 
 function Player(props) {
-  const {firstname, lastname, id} = props.player;
+  const {firstname, lastname, age, id} = props.player;
   const {onDeletePlayer}= props;
 
   return (
     <>
-      <li>{`${firstname} ${lastname}`}</li>
-      <button type="button" onClick={()=>onDeletePlayer(id)}>Supprimer</button>
+      <li>
+        <div className='textColumn'>
+          <p>{`${firstname} ${lastname}`}</p>
+          <p>{`${age}`}</p>
+        </div>
+        <button type="button"
+          onClick={()=>onDeletePlayer(id)}>
+          Supprimer
+        </button>
+      </li>
     </>
   );
 }
