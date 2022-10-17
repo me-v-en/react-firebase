@@ -5,12 +5,12 @@ ul.playersList{
     flex-direction: column;
     padding: 0;
 
-    li{
+    li label{
         text-align: left;
         display: flex;
         align-items: center;
 
-        padding: 1rem;
+        padding: .5rem 1rem;
         margin: .5rem 0;
         border: solid 1px black;
 
@@ -19,6 +19,10 @@ ul.playersList{
             
             display: flex;
             flex-direction: column;
+
+            .age{
+color: rgb(99, 99, 99);
+            }
         }
 
         p{

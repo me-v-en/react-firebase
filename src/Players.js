@@ -31,14 +31,16 @@ function Player(props) {
   return (
     <>
       <li>
-        <div className='textColumn'>
-          <p>{`${firstname} ${lastname}`}</p>
-          <p>{`${age}`}</p>
-        </div>
-        <button type="button"
-          onClick={()=>onDeletePlayer(id)}>
+        <label>
+          <div className='textColumn'>
+            <p>{`${firstname} ${lastname}`}</p>
+            <p className='age'>{`${age}`}</p>
+          </div>
+          <button type="button"
+            onClick={()=>onDeletePlayer(id)}>
           Supprimer
-        </button>
+          </button>
+        </label>
       </li>
     </>
   );
